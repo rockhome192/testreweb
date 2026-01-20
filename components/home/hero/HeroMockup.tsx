@@ -15,7 +15,7 @@ export default function HeroMockup() {
                     {/* Screen */}
                     <div className="relative bg-white rounded-[2.5rem] overflow-hidden aspect-[9/19]">
                         {/* Status Bar */}
-                        <div className="bg-gradient-to-r from-pink-500 to-purple-600 px-6 py-4 flex justify-between items-center">
+                        <div className="bg-gradient-to-r from-red-500 to-red-600 px-6 py-4 flex justify-between items-center">
                             <span className="text-white text-xs font-medium">9:41</span>
                             <div className="flex space-x-1">
                                 <div className="w-1 h-3 bg-white rounded"></div>
@@ -38,7 +38,7 @@ export default function HeroMockup() {
                         <div className="px-6 py-4 grid grid-cols-4 gap-3">
                             {['ฝาก', 'ถอน', 'ซื้อ', 'ขาย'].map((action, i) => (
                                 <div key={i} className="text-center">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl mx-auto mb-2 flex items-center justify-center">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl mx-auto mb-2 flex items-center justify-center">
                                         <span className="text-white text-lg">📊</span>
                                     </div>
                                     <p className="text-xs text-gray-600">{action}</p>
