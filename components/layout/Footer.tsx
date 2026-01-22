@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <footer className="bg-slate-900 text-gray-300">
             {/* Main Footer Content */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-[1430px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8">
 
                     {/* Column 1: Logo & Company Info */}
@@ -62,10 +62,10 @@ export default function Footer() {
                             <Link href="/services/bonds" className="block hover:text-red-300 transition-colors">
                                 ตราสารหนี้
                             </Link>
-                            <Link href="/services/ipo" className="block hover:text-red-300 transition-colors">
+                            <Link href="/services/sec-deriv-trading" className="block hover:text-red-300 transition-colors">
                                 จองซื้อหุ้นสามัญเพิ่มทุน
                             </Link>
-                            <Link href="/services/representative" className="block hover:text-red-300 transition-colors">
+                            <Link href="/services/ipo" className="block hover:text-red-300 transition-colors">
                                 ผู้แทนผู้ถือหุ้นกู้
                             </Link>
                         </div>

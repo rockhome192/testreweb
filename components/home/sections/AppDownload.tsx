@@ -27,7 +27,7 @@ export default function AppDownload() {
                 <div className="absolute bottom-0 right-[200px] w-0 h-0 border-r-[200px] border-r-transparent border-b-[200px] border-b-slate-900/80"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
                     {/* Phone Mockup - Left Side */}
                     <div className="flex-1 flex justify-center lg:justify-start">

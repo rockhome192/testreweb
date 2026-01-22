@@ -128,7 +128,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                     }
                                     // internal links work normally
                                 }}
-                                className="text-red-600 hover:text-red-700 underline inline-flex items-center gap-1 font-medium transition-colors"
+                                className="text-gray-700 hover:text-red-600 underline inline-flex items-center gap-1 font-medium transition-colors"
                                 target={linkType === 'external' ? '_blank' : undefined}
                                 rel={linkType === 'external' ? 'noopener noreferrer' : undefined}
                             >
@@ -161,13 +161,15 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     // Content Block Renderer
     // =====================================================
     const renderContentBlocks = (blocks: any[]) => {
+        const isRightOffering = params.slug === 'sec-deriv-trading'
+
         return (
             <div className="space-y-8">
                 {blocks.map((block, index) => {
                     switch (block.type) {
                         case 'text':
                             return (
-                                <p key={index} className="text-gray-700 text-lg leading-relaxed">
+                                <p key={index} className={`text-lg leading-relaxed ${isRightOffering ? 'text-center text-red-600 font-medium' : 'text-gray-700'}`}>
                                     {renderTextWithLinks(block.content)}
                                 </p>
                             )
@@ -261,56 +263,61 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
             )}
 
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-[280px_1fr] lg:gap-8 gap-6">
+            <div className="max-w-[1430px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid lg:grid-cols-[300px_1fr] lg:gap-8 gap-6">
                     {/* Left Sidebar */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sticky top-36">
-                            <h3 className="font-bold text-gray-900 mb-3 text-lg">
-                                {service.title}
-                            </h3>
-                            <div className="space-y-1">
-                                {service.submenu.map((item) => (
-                                    <React.Fragment key={item.id}>
-                                        {item.items ? (
-                                            <div className="mb-4 last:mb-0">
-                                                <h4 className="px-4 py-2 text-sm font-bold text-gray-900 mb-1">
-                                                    {item.label}
-                                                </h4>
-                                                <div className="space-y-1">
-                                                    {item.items.map((subItem) => (
-                                                        <button
-                                                            key={subItem.id}
-                                                            onClick={() => handleSubmenuClick(subItem.id)}
-                                                            className={`
-                                                                w-full text-left px-4 py-2.5 rounded-lg transition-all text-sm pl-6
-                                                                ${activeSubmenu === subItem.id
-                                                                    ? 'bg-red-50 text-red-700 font-medium'
-                                                                    : 'text-gray-600 hover:bg-gray-50'
-                                                                }
-                                                            `}
-                                                        >
-                                                            • {subItem.label}
-                                                        </button>
-                                                    ))}
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 sticky top-36">
+                            <div className="p-4 border-b border-gray-100">
+                                <h3 className="font-bold text-gray-900 text-lg">
+                                    {service.title}
+                                </h3>
+                            </div>
+
+                            <div className="p-2 overflow-y-auto max-h-[calc(100vh-200px)] custom-scrollbar">
+                                <div className="space-y-1">
+                                    {service.submenu.map((item) => (
+                                        <React.Fragment key={item.id}>
+                                            {item.items ? (
+                                                <div className="mb-4 last:mb-0">
+                                                    <h4 className="px-4 py-2 text-sm font-bold text-gray-900 mb-1">
+                                                        {item.label}
+                                                    </h4>
+                                                    <div className="space-y-1">
+                                                        {item.items.map((subItem) => (
+                                                            <button
+                                                                key={subItem.id}
+                                                                onClick={() => handleSubmenuClick(subItem.id)}
+                                                                className={`
+                                                                    w-full text-left px-4 py-2.5 rounded-lg transition-all text-sm pl-6
+                                                                    ${activeSubmenu === subItem.id
+                                                                        ? 'bg-red-50 text-red-700 font-medium'
+                                                                        : 'text-gray-600 hover:bg-gray-50'
+                                                                    }
+                                                                `}
+                                                            >
+                                                                • {subItem.label}
+                                                            </button>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ) : (
-                                            <button
-                                                onClick={() => handleSubmenuClick(item.id)}
-                                                className={`
-                                                    w-full text-left px-4 py-2.5 rounded-lg transition-all text-sm
-                                                    ${activeSubmenu === item.id
-                                                        ? 'bg-red-50 text-red-700 font-medium'
-                                                        : 'text-gray-600 hover:bg-gray-50'
-                                                    }
-                                                `}
-                                            >
-                                                • {item.label}
-                                            </button>
-                                        )}
-                                    </React.Fragment>
-                                ))}
+                                            ) : (
+                                                <button
+                                                    onClick={() => handleSubmenuClick(item.id)}
+                                                    className={`
+                                                        w-full text-left px-4 py-2.5 rounded-lg transition-all text-sm
+                                                        ${activeSubmenu === item.id
+                                                            ? 'bg-red-50 text-red-700 font-medium'
+                                                            : 'text-gray-600 hover:bg-gray-50'
+                                                        }
+                                                    `}
+                                                >
+                                                    • {item.label}
+                                                </button>
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -318,9 +325,12 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                     {/* Right Content */}
                     <div className="min-w-0">
                         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                                {currentContent.title}
-                            </h2>
+
+                            <div className="flex justify-center mb-8">
+                                <h2 className="text-xl md:text-3xl font-bold text-gray-900 px-6 py-4 md:px-12 md:py-5 rounded-2xl md:rounded-3xl border border-gray-200 shadow-sm bg-white inline-block text-center leading-tight max-w-4xl">
+                                    {currentContent.title}
+                                </h2>
+                            </div>
 
                             {params.slug === 'vietnam-fund' && activeSubmenu === 'info-basic' && (
                                 <VietnamStockChart />

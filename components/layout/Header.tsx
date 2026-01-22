@@ -28,11 +28,11 @@ export default function Header() {
             submenu: [
                 { name: 'SSI-SCA (กองทุนเวียดนาม)', href: '/services/vietnam-fund' },
                 { name: 'วาณิชธนกิจ', href: '/services/investment-banking' },
-                { name: 'การกองทุนส่วนบุคคล', href: '/services/private-equity' },
-                { name: 'ซื้อขายหลักทรัพย์และอนุพันธ์', href: '/services/ipo' },
-                { name: 'ตราสารหน', href: '/services/ipo' },
-                { name: 'จองซื้อหุ้นสามัญเพิ่มทุน', href: '/services/ipo' },
-                { name: 'ผู้แทนผู้ถือหุ้นกู้', href: '/services/ipo' },
+                { name: 'กองทุนส่วนบุคคล', href: '/services/private-fund' },
+                { name: 'ซื้อขายหลักทรัพย์และอนุพันธ์', href: '/services/brokerage' },
+                { name: 'ตราสารหนี้', href: '/services/bonds' },
+                { name: 'จองซื้อหุ้นสามัญเพิ่มทุน', href: '/services/sec-deriv-trading' },
+                { name: 'ผู้แทนผู้ถือหุ้นกู้', href: '/services/bond-product' },
             ]
         },
         {
@@ -64,7 +64,7 @@ export default function Header() {
 
     return (
         <header className="bg-white shadow-sm sticky top-0 z-50">
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="max-w-[1430px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20 gap-8">
                     {/* Logo */}
                     <Link href="/" className="flex-shrink-0">
@@ -98,7 +98,7 @@ export default function Header() {
                                                 <Link
                                                     key={subitem.name}
                                                     href={subitem.href}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors"
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
                                                 >
                                                     {subitem.name}
                                                 </Link>
@@ -115,7 +115,7 @@ export default function Header() {
                         {/* ปุ่มค้นหา */}
                         <button
                             onClick={() => setSearchOpen(!searchOpen)}
-                            className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-all p-2 rounded-lg"
+                            className="text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all p-2 rounded-lg"
                             aria-label="Search"
                         >
                             <Search className="w-5 h-5" />
@@ -123,7 +123,7 @@ export default function Header() {
 
                         {/* ปุ่มเปลี่ยนภาษา */}
                         <div className="relative group">
-                            <button className="flex items-center gap-1.5 text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-all px-2.5 py-2 rounded-lg">
+                            <button className="flex items-center gap-1.5 text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all px-2.5 py-2 rounded-lg">
                                 {language === 'TH' ? (
                                     <img src="https://flagcdn.com/w40/th.png" alt="Thai" className="w-6 h-4 object-cover rounded-sm" />
                                 ) : (
@@ -137,14 +137,14 @@ export default function Header() {
                                 <div className="bg-white rounded-lg shadow-lg py-2 border border-gray-100">
                                     <button
                                         onClick={() => setLanguage('TH')}
-                                        className={`flex items-center gap-2.5 w-full text-left px-4 py-2 text-sm hover:bg-purple-50 transition-colors ${language === 'TH' ? 'text-purple-600 bg-purple-50 font-medium' : 'text-gray-700'}`}
+                                        className={`flex items-center gap-2.5 w-full text-left px-4 py-2 text-sm hover:bg-red-50 transition-colors ${language === 'TH' ? 'text-red-600 bg-red-50 font-medium' : 'text-gray-700'}`}
                                     >
                                         <img src="https://flagcdn.com/w40/th.png" alt="Thai" className="w-6 h-4 object-cover rounded-sm" />
                                         <span>ไทย</span>
                                     </button>
                                     <button
                                         onClick={() => setLanguage('EN')}
-                                        className={`flex items-center gap-2.5 w-full text-left px-4 py-2 text-sm hover:bg-purple-50 transition-colors ${language === 'EN' ? 'text-purple-600 bg-purple-50 font-medium' : 'text-gray-700'}`}
+                                        className={`flex items-center gap-2.5 w-full text-left px-4 py-2 text-sm hover:bg-red-50 transition-colors ${language === 'EN' ? 'text-red-600 bg-red-50 font-medium' : 'text-gray-700'}`}
                                     >
                                         <img src="https://flagcdn.com/w40/gb.png" alt="English" className="w-6 h-4 object-cover rounded-sm" />
                                         <span>English</span>
@@ -159,7 +159,7 @@ export default function Header() {
                         {/* ปุ่มเข้าสู่ระบบ */}
                         <Link
                             href="/login"
-                            className="text-gray-700 hover:text-purple-600 font-medium transition-colors px-3 py-2 text-[15px]"
+                            className="text-gray-700 hover:text-red-600 font-medium transition-colors px-3 py-2 text-[15px]"
                         >
                             เข้าสู่ระบบ
                         </Link>
@@ -215,7 +215,7 @@ export default function Header() {
                             <input
                                 type="text"
                                 placeholder="ค้นหาบทวิเคราะห์, หุ้น, บทความ..."
-                                className="w-full px-5 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base shadow-sm"
+                                className="w-full px-5 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base shadow-sm"
                                 autoFocus
                             />
                             <Search className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
@@ -230,7 +230,7 @@ export default function Header() {
                             <input
                                 type="text"
                                 placeholder="ค้นหา..."
-                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base"
+                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base"
                                 autoFocus
                             />
                             <Search className="w-5 h-5 text-gray-400 absolute left-3.5 top-1/2 transform -translate-y-1/2" />
@@ -245,7 +245,7 @@ export default function Header() {
                             <div key={item.name} className="py-2">
                                 <Link
                                     href={item.href}
-                                    className="block text-gray-700 hover:text-purple-600 font-medium py-2"
+                                    className="block text-gray-700 hover:text-red-600 font-medium py-2"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {item.name}
@@ -256,7 +256,7 @@ export default function Header() {
                                             <Link
                                                 key={subitem.name}
                                                 href={subitem.href}
-                                                className="block text-sm text-gray-600 hover:text-purple-600 py-1"
+                                                className="block text-sm text-gray-600 hover:text-red-600 py-1"
                                                 onClick={() => setMobileMenuOpen(false)}
                                             >
                                                 {subitem.name}
@@ -269,13 +269,13 @@ export default function Header() {
                         <div className="flex flex-col space-y-3 mt-4 pt-4 border-t border-gray-100">
                             <Link
                                 href="/account/login"
-                                className="bg-white border-2 border-purple-600 text-purple-600 font-medium py-3 rounded-lg text-center hover:bg-purple-50 transition-colors"
+                                className="bg-white border-2 border-red-600 text-red-600 font-medium py-3 rounded-lg text-center hover:bg-red-50 transition-colors"
                             >
                                 เข้าสู่ระบบ
                             </Link>
                             <Link
                                 href="/account/register"
-                                className="bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium py-3 rounded-lg text-center hover:shadow-lg transition-all"
+                                className="bg-gradient-to-r from-pink-500 to-red-600 text-white font-medium py-3 rounded-lg text-center hover:shadow-lg transition-all"
                             >
                                 เปิดบัญชี
                             </Link>

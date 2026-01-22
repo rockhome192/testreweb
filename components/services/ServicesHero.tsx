@@ -25,7 +25,7 @@ export default function ServicesHero() {
 
             {/* Centered Content */}
             <div className="relative h-full flex items-center justify-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <div className="text-white z-10">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
                             INSIGHT TO INVEST
