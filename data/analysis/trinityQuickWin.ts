@@ -1,7 +1,7 @@
-// data/analysis/technicalfactors.ts
+// data/analysis/trinityQuickWin.ts
 import type { AnalysisItem } from './index'
 
-export const technicalFactors: AnalysisItem[] = [
+export const trinityQuickWin: AnalysisItem[] = [
   {
     date: '23/01/2026',
     title: 'TRINITY GOLD-USD FUTURES_20260123',

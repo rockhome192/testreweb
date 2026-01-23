@@ -27,7 +27,6 @@ export default function AnalysisLayout({
     <div className="min-h-screen bg-gray-50">
       {/* ================= HERO ================= */}
       <AnalysisHero />
-
       {/* ================= TABS / DROPDOWN ================= */}
       <div className="relative z-30 -mt-9">
         <div className="max-w-[1174px] mx-auto px-4">
