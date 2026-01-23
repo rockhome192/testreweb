@@ -9,6 +9,7 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
     const [language, setLanguage] = useState('TH')
+    const [openSubmenu, setOpenSubmenu] = useState<string | null>(null)
 
     const navigation = [
         {
@@ -243,26 +244,40 @@ export default function Header() {
                     <div className="lg:hidden py-4 border-t border-gray-100">
                         {navigation.map((item) => (
                             <div key={item.name} className="py-2">
-                                <Link
-                                    href={item.href}
-                                    className="block text-gray-700 hover:text-red-600 font-medium py-2"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    {item.name}
-                                </Link>
-                                {item.submenu && (
-                                    <div className="pl-4 space-y-2 mt-2">
-                                        {item.submenu.map((subitem) => (
-                                            <Link
-                                                key={subitem.name}
-                                                href={subitem.href}
-                                                className="block text-sm text-gray-600 hover:text-red-600 py-1"
-                                                onClick={() => setMobileMenuOpen(false)}
-                                            >
-                                                {subitem.name}
-                                            </Link>
-                                        ))}
+                                {item.submenu ? (
+                                    <div>
+                                        <button
+                                            onClick={() => setOpenSubmenu(openSubmenu === item.name ? null : item.name)}
+                                            className="flex items-center justify-between w-full text-left text-gray-700 hover:text-red-600 font-medium py-2"
+                                        >
+                                            <span>{item.name}</span>
+                                            <ChevronDown
+                                                className={`w-4 h-4 transition-transform ${openSubmenu === item.name ? 'rotate-180' : ''}`}
+                                            />
+                                        </button>
+                                        {openSubmenu === item.name && (
+                                            <div className="pl-4 space-y-2 mt-2">
+                                                {item.submenu.map((subitem) => (
+                                                    <Link
+                                                        key={subitem.name}
+                                                        href={subitem.href}
+                                                        className="block text-sm text-gray-600 hover:text-red-600 py-1"
+                                                        onClick={() => setMobileMenuOpen(false)}
+                                                    >
+                                                        {subitem.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
+                                ) : (
+                                    <Link
+                                        href={item.href}
+                                        className="block text-gray-700 hover:text-red-600 font-medium py-2"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {item.name}
+                                    </Link>
                                 )}
                             </div>
                         ))}
@@ -275,7 +290,7 @@ export default function Header() {
                             </Link>
                             <Link
                                 href="/account/register"
-                                className="bg-gradient-to-r from-pink-500 to-red-600 text-white font-medium py-3 rounded-lg text-center hover:shadow-lg transition-all"
+                                className="bg-gradient-to-r from-red-500 to-red-600 text-white font-medium py-3 rounded-lg text-center hover:shadow-lg transition-all"
                             >
                                 เปิดบัญชี
                             </Link>

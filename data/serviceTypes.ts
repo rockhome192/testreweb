@@ -9,7 +9,7 @@ export type ContentBlock =
     | { type: 'text'; content: string }
     | { type: 'list'; items: string[] }
     | { type: 'image'; url: string; caption?: string; link?: string }
-    | { type: 'images_grid'; images: { url: string; caption?: string; link?: string }[] };
+    | { type: 'images_grid'; images: { url: string; caption?: string; link?: string; maxWidth?: string }[] };
 
 export type ServiceContent = {
     title: string;

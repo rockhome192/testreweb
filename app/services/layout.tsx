@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import ServicesHero from '@/components/services/ServicesHero'
 import { servicesData } from '@/data/servicesData'
 
@@ -12,6 +12,7 @@ export default function ServicesLayout({
     children: React.ReactNode
 }) {
     const pathname = usePathname()
+    const router = useRouter()
     // Extract slug from pathname: /services/[slug] -> [slug]
     const currentSlug = pathname.split('/').pop() || ''
 
@@ -22,39 +23,68 @@ export default function ServicesLayout({
             {/* Hero Section - Persistent */}
             <ServicesHero />
 
-            {/* Category Tabs - Persistent */}
-            <section className="bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
-                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
-                    <div className="flex justify-center overflow-x-auto hide-scrollbar py-4">
+            {/* ================= TABS / DROPDOWN ================= */}
+            <div className="relative z-30 -mt-9">
+                <div className="max-w-[1210px] mx-auto px-4">
+                    <div className="bg-white rounded-full border border-[#C5C5C5] shadow-lg px-3 py-2">
+                        {/* ===== Dropdown (mobile + tablet + iPad + iPad Pro) ===== */}
+                        <div className="xl:hidden">
+                            <select
+                                value={currentSlug}
+                                onChange={(e) =>
+                                    router.push(`/services/${e.target.value}`)
+                                }
+                                className="
+                                    w-full h-12 rounded-full
+                                    pl-5 pr-12
+                                    bg-white text-gray-900 font-medium
+                                    appearance-none focus:outline-none
+                                    bg-no-repeat bg-right
+                                "
+                                style={{
+                                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
+                                    backgroundPosition: "right 1.25rem center",
+                                    backgroundSize: "18px",
+                                }}
+                            >
+                                {categories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                        {categories.map((category) => {
-                            const Icon = category.icon
-                            const isActive = currentSlug === category.id
-                            return (
-                                <Link
-                                    key={category.id}
-                                    href={`/services/${category.id}`}
-                                    className={`
-                                            flex items-center gap-2 px-6 py-2  rounded-full font-medium transition-all whitespace-nowrap
+                        {/* ===== Tabs (desktop wide only) ===== */}
+                        <div className="hidden xl:flex gap-3 overflow-x-auto hide-scrollbar">
+                            {categories.map((category) => {
+                                const isActive = currentSlug === category.id
+
+                                return (
+                                    <Link
+                                        key={category.id}
+                                        href={`/services/${category.id}`}
+                                        className={`
+                                            px-5 py-3 rounded-full text-sm font-medium whitespace-nowrap transition-all
                                             ${isActive
-                                            ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-md'
-                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                        }
+                                                ? "bg-[#E14045] text-white hover:bg-red-600"
+                                                : "bg-white text-gray-700 hover:bg-gray-200"
+                                            }
                                         `}
-                                >
-
-                                    {category.label}
-                                </Link>
-                            )
-                        })}
-
+                                    >
+                                        {category.label}
+                                    </Link>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            {/* Page Content */}
-            {children}
+            {/* ================= CONTENT ================= */}
+            <main>{children}</main>
 
+            {/* ================= SCROLLBAR HIDE ================= */}
             <style jsx global>{`
                 .hide-scrollbar {
                     -ms-overflow-style: none;

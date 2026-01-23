@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { notFound, useRouter, useSearchParams, usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { ExternalLink, Download, X } from 'lucide-react'
 import { servicesData } from '@/data/servicesData'
 import VietnamStockChart from '@/components/services/VietnamStockChart'
@@ -216,6 +217,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                         <div
                                             key={idx}
                                             className="relative rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
+                                            style={img.maxWidth ? { maxWidth: img.maxWidth, margin: '0 auto' } : undefined}
                                             onClick={() => img.link ? window.open(img.link, '_blank') : setSelectedImage(img.url)}
                                         >
                                             <img
@@ -319,6 +321,25 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                     ))}
                                 </div>
                             </div>
+
+                            {/* Contact Button - Vietnam Fund Only */}
+                            {params.slug === 'vietnam-fund' && (
+                                <div className="p-4 border-t border-gray-100">
+                                    <Link
+                                        href="/services/vietnam-fund?tab=opening-eopen"
+                                        className="block bg-[#A4252C] rounded-lg px-4 py-3 text-center hover:bg-[#8a1f24] transition-colors"
+                                    >
+                                        <div className="text-white font-bold text-base mb-2">
+                                            ลงทุนกองทุนนี้
+                                        </div>
+                                        <div className="text-white text-sm">
+                                            โทร <span className="underline">02-088-9350</span>
+                                            {' , '}
+                                            <span className="underline">02-088-9358</span>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
 
