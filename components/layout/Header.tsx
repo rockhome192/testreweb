@@ -53,9 +53,9 @@ export default function Header() {
             name: 'แหล่งความรู้', href: '/education',
             submenu: [
                 { name: 'ความรู้ด้านการลงทุน', href: '/education' },
-                { name: 'คู่มือการใช้งาน', href: '/education' },
-                { name: 'บทความการลงทุน', href: '/education' },
-                { name: 'สัมมนา', href: '/education' },
+                { name: 'คู่มือการใช้งาน', href: '/e' },
+                { name: 'บทความการลงทุน', href: '/edu' },
+                { name: 'สัมมนา', href: '/educa' },
             ]
         },
         { name: 'Trinity member', href: '/member' },

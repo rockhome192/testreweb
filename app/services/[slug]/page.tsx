@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { notFound, useRouter, useSearchParams, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { ExternalLink, Download, X } from 'lucide-react'
-import { servicesData } from '@/data/servicesData'
+import { servicesData } from '@/data/services/servicesData'
 import VietnamStockChart from '@/components/services/VietnamStockChart'
 
 export default function ServicePage({ params }: { params: { slug: string } }) {
