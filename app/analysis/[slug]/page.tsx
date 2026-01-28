@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { notFound } from "next/navigation";
 import { analysisDataMap } from "@/data/analysis";
 
@@ -37,6 +37,9 @@ export default function AnalysisSlugPage({ params }: PageProps) {
 
   /* ================= DATE FILTER FLAG ================= */
   const [isDateApplied, setIsDateApplied] = useState(false);
+
+  /* ================= REF FOR SCROLL ================= */
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   /* ================= REALTIME KEYWORD ================= */
   useEffect(() => {
@@ -87,6 +90,27 @@ export default function AnalysisSlugPage({ params }: PageProps) {
   const hasData = paginatedItems.length > 0;
 
   /* ================= ACTIONS ================= */
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+
+    requestAnimationFrame(() => {
+      if (!contentRef.current) return;
+
+      const isMobile = window.innerWidth < 1024;
+      const offset = isMobile ? 180 : 200;
+
+      const top =
+        contentRef.current.getBoundingClientRect().top +
+        window.pageYOffset -
+        offset;
+
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    });
+  };
+
   const handleSearch = () => {
     if (from && to) {
       setAppliedFrom(from);
@@ -112,7 +136,10 @@ export default function AnalysisSlugPage({ params }: PageProps) {
           {getCategoryTitle(slug)}
         </h2>
 
-        <div className="bg-white rounded-2xl shadow-[0_0_28px_rgba(0,0,0,0.12)] p-8 border border-[#C5C5C5]">
+        <div
+          ref={contentRef}
+          className="bg-white rounded-2xl shadow-[0_0_28px_rgba(0,0,0,0.12)] p-8 border border-[#C5C5C5]"
+        >
           {/* ================= FILTER ================= */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-8">
             {/* Search */}
@@ -334,7 +361,7 @@ export default function AnalysisSlugPage({ params }: PageProps) {
             <div className="flex justify-center items-center gap-4 mt-10">
               <button
                 disabled={currentPage === 1}
-                onClick={() => setCurrentPage((p) => p - 1)}
+                onClick={() => handlePageChange(currentPage - 1)}
                 className="flex items-center gap-1 text-gray-800 disabled:opacity-40"
               >
                 ‹ Previous
@@ -345,7 +372,7 @@ export default function AnalysisSlugPage({ params }: PageProps) {
                 return (
                   <button
                     key={page}
-                    onClick={() => setCurrentPage(page)}
+                    onClick={() => handlePageChange(page)}
                     className={`w-10 h-10 rounded-xl font-medium ${
                       currentPage === page
                         ? "bg-gray-900 text-white"
@@ -359,7 +386,7 @@ export default function AnalysisSlugPage({ params }: PageProps) {
 
               <button
                 disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => p + 1)}
+                onClick={() => handlePageChange(currentPage + 1)}
                 className="flex items-center gap-1 text-gray-800 disabled:opacity-40"
               >
                 Next ›

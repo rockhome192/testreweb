@@ -1,32 +1,33 @@
-"use client";
+'use client'
 
-import React from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import AnalysisHero from "@/components/analysis/AnalysisHero";
+import React from 'react'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
+import InvestorHero from '@/components/Investor/InvestorHero'
 
-const analysisTabs = [
-  { id: "latest", label: "บทวิเคราะห์ล่าสุด" },
-  { id: "technical", label: "ปัจจัยทางเทคนิค" },
-  { id: "fundamental", label: "ปัจจัยพื้นฐาน" },
-  { id: "asset", label: "บทวิเคราะห์รายหลักทรัพย์" },
-  { id: "sector", label: "บทวิเคราะห์ราย sector" },
-  { id: "quick-win", label: "Trinity Quick win" },
-];
+const investorTabs = [
+  { id: 'about-trinity', label: 'รู้จักทรีนีตี้' },
+  { id: 'financial-statement', label: 'งบการเงิน' },
+  { id: 'new-disclosure', label: 'ข่าวสารแจ้งตลาดหลักทรัพย์' },
+  { id: 'capital-shareholding', label: 'โครงสร้างเงินทุนและผู้ถือหุ้น' },
+  { id: 'dividend-payment', label: 'การจ่ายเงินปันผล' },
+  { id: 'annual-report', label: 'รายงานประจำปี' },
+  { id: 'esg-report', label: 'รายงาน ESG' },
+]
 
-export default function AnalysisLayout({
+export default function InvestorLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const currentSlug = pathname.split("/").pop() || "latest";
+  const pathname = usePathname()
+  const router = useRouter()
+  const currentSlug = pathname.split('/').pop() || investorTabs[0].id
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* ================= HERO ================= */}
-      <AnalysisHero />
+      <InvestorHero />
 
       {/* ================= TABS / DROPDOWN ================= */}
       <div className="relative z-30 -mt-9">
@@ -39,12 +40,12 @@ export default function AnalysisLayout({
                 xl:inline-flex xl:w-auto
               "
             >
-              {/* ===== Dropdown (mobile + tablet + iPad) ===== */}
+              {/* ===== Dropdown (mobile / tablet) ===== */}
               <div className="xl:hidden">
                 <select
                   value={currentSlug}
                   onChange={(e) =>
-                    router.push(`/analysis/${e.target.value}`)
+                    router.push(`/Investor/${e.target.value}`)
                   }
                   className="
                     w-full h-12 rounded-full
@@ -55,11 +56,11 @@ export default function AnalysisLayout({
                   "
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
-                    backgroundPosition: "right 1.25rem center",
-                    backgroundSize: "18px",
+                    backgroundPosition: 'right 1.25rem center',
+                    backgroundSize: '18px',
                   }}
                 >
-                  {analysisTabs.map((tab) => (
+                  {investorTabs.map((tab) => (
                     <option key={tab.id} value={tab.id}>
                       {tab.label}
                     </option>
@@ -67,28 +68,28 @@ export default function AnalysisLayout({
                 </select>
               </div>
 
-              {/* ===== Tabs (desktop wide only) ===== */}
+              {/* ===== Tabs (desktop xl+) ===== */}
               <div className="hidden xl:flex gap-4 whitespace-nowrap">
-                {analysisTabs.map((tab) => {
-                  const isActive = currentSlug === tab.id;
+                {investorTabs.map((tab) => {
+                  const isActive = currentSlug === tab.id
 
                   return (
                     <Link
                       key={tab.id}
-                      href={`/analysis/${tab.id}`}
+                      href={`/Investor/${tab.id}`}
                       className={`
                         px-6 py-3 rounded-full text-md font-medium
                         transition-all
                         ${
                           isActive
-                            ? "bg-[#E14045] text-white hover:bg-red-600"
-                            : "bg-white text-gray-700 hover:bg-gray-200"
+                            ? 'bg-[#E14045] text-white hover:bg-red-600'
+                            : 'bg-white text-gray-700 hover:bg-gray-200'
                         }
                       `}
                     >
                       {tab.label}
                     </Link>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -110,5 +111,5 @@ export default function AnalysisLayout({
         }
       `}</style>
     </div>
-  );
+  )
 }
