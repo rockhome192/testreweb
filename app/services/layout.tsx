@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import ServicesHero from '@/components/services/ServicesHero'
-import { servicesData } from '@/data/servicesData'
+import { servicesData } from '@/data/services/servicesData'
 
 export default function ServicesLayout({
     children,
@@ -25,7 +25,7 @@ export default function ServicesLayout({
 
             {/* ================= TABS / DROPDOWN ================= */}
             <div className="relative z-30 -mt-9">
-                <div className="max-w-[1210px] mx-auto px-4">
+                <div className="max-w-[1320px] mx-auto px-4">
                     <div className="bg-white rounded-full border border-[#C5C5C5] shadow-lg px-3 py-2">
                         {/* ===== Dropdown (mobile + tablet + iPad + iPad Pro) ===== */}
                         <div className="xl:hidden">
@@ -65,7 +65,7 @@ export default function ServicesLayout({
                                         key={category.id}
                                         href={`/services/${category.id}`}
                                         className={`
-                                            px-5 py-3 rounded-full text-sm font-medium whitespace-nowrap transition-all
+                                            px-5 py-3 rounded-full text-md font-medium whitespace-nowrap transition-all
                                             ${isActive
                                                 ? "bg-[#E14045] text-white hover:bg-red-600"
                                                 : "bg-white text-gray-700 hover:bg-gray-200"

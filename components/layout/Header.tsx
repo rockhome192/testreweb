@@ -56,7 +56,6 @@ export default function Header() {
         { name: "ESG Report", href: "/Investor/esg-report" },
       ],
     },
-
     {
       name: "แหล่งความรู้",
       href: "/education",

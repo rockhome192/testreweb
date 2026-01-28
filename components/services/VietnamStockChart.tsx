@@ -19,6 +19,8 @@ interface ChartProps {
 }
 
 const SimpleLineChart = ({ data, color, title, yLabel }: ChartProps) => {
+    const [hoveredPoint, setHoveredPoint] = useState<{ index: number; x: number; y: number } | null>(null)
+
     if (data.length === 0) return null
 
     const height = 300
@@ -64,7 +66,40 @@ const SimpleLineChart = ({ data, color, title, yLabel }: ChartProps) => {
             </h4>
             <div className="w-full relative" style={{ paddingBottom: '37.5%' }}> {/* Aspect Ratio 8:3 */}
                 <div className="absolute inset-0">
-                    <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible">
+                    <svg
+                        viewBox={`0 0 ${width} ${height}`}
+                        className="w-full h-full overflow-visible"
+                        onMouseMove={(e) => {
+                            const svg = e.currentTarget
+                            const rect = svg.getBoundingClientRect()
+                            const x = ((e.clientX - rect.left) / rect.width) * width
+                            const y = ((e.clientY - rect.top) / rect.height) * height
+
+                            // Find closest point
+                            let closestIndex = 0
+                            let closestDistance = Infinity
+
+                            plotData.forEach((d, i) => {
+                                const px = getX(i)
+                                const py = getY(d.val)
+                                const distance = Math.sqrt(Math.pow(x - px, 2) + Math.pow(y - py, 2))
+
+                                if (distance < closestDistance && distance < 30) {
+                                    closestDistance = distance
+                                    closestIndex = i
+                                }
+                            })
+
+                            if (closestDistance < 30) {
+                                setHoveredPoint({
+                                    index: closestIndex,
+                                    x: getX(closestIndex),
+                                    y: getY(plotData[closestIndex].val)
+                                })
+                            }
+                        }}
+                        onMouseLeave={() => setHoveredPoint(null)}
+                    >
                         {/* Grid Lines (Horizontal) */}
                         {yTicks.map((tick, i) => (
                             <line
@@ -125,6 +160,64 @@ const SimpleLineChart = ({ data, color, title, yLabel }: ChartProps) => {
                         >
                             NAV
                         </text>
+
+                        {/* Hover Point and Tooltip */}
+                        {hoveredPoint && (
+                            <>
+                                {/* Vertical Line */}
+                                <line
+                                    x1={hoveredPoint.x}
+                                    y1={padding.top}
+                                    x2={hoveredPoint.x}
+                                    y2={height - padding.bottom}
+                                    stroke="#94a3b8"
+                                    strokeWidth="1"
+                                    strokeDasharray="4 2"
+                                />
+
+                                {/* Hover Circle */}
+                                <circle
+                                    cx={hoveredPoint.x}
+                                    cy={hoveredPoint.y}
+                                    r="5"
+                                    fill={color}
+                                    stroke="white"
+                                    strokeWidth="2"
+                                />
+
+                                {/* Tooltip Background */}
+                                <g transform={`translate(${hoveredPoint.x > width / 2 ? hoveredPoint.x - 120 : hoveredPoint.x + 10}, ${hoveredPoint.y - 50})`}>
+                                    <rect
+                                        x="0"
+                                        y="0"
+                                        width="110"
+                                        height="40"
+                                        fill="white"
+                                        stroke="#e5e7eb"
+                                        strokeWidth="1"
+                                        rx="4"
+                                    />
+                                    {/* Tooltip Text - Date */}
+                                    <text
+                                        x="55"
+                                        y="16"
+                                        textAnchor="middle"
+                                        className="text-[10px] fill-gray-600 font-medium"
+                                    >
+                                        {plotData[hoveredPoint.index].date.toISOString().split('T')[0]}
+                                    </text>
+                                    {/* Tooltip Text - Value */}
+                                    <text
+                                        x="55"
+                                        y="30"
+                                        textAnchor="middle"
+                                        className="text-[11px] fill-gray-900 font-bold"
+                                    >
+                                        {yLabel}: {plotData[hoveredPoint.index].val.toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                                    </text>
+                                </g>
+                            </>
+                        )}
 
                     </svg>
                 </div>
